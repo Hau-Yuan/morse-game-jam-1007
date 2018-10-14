@@ -5,9 +5,19 @@
     input {
       margin: auto;
       width: 100%;
+      position: absolute;
+      z-index: 1;
     }
     body {
       background-color: #00CEB0;
+    }
+    h1 {
+      color: white;
+      font-family: Helvetica;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+      position: absolute;
     }
   </style>
 </head>
@@ -15,8 +25,8 @@
 <body>
   <!-- Begin at homescreen.html -->
   <!-- Upon click of Start button, play train sound & go to index.html -->
+    <h1>Ben’s Game to Learn Morse Code!</h1>
     <input type="image" id="start" src="assets/homeScreenAnimation.gif" />
-
     <audio id="trainSound" loop>
       <source src="assets/sounds/BOOBOO.mp3" type="audio/mpeg">
     </audio>

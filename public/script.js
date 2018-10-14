@@ -15,6 +15,7 @@ var numberOfTries = 0;
 
 //If user touches one of the cards
 var trainDiv = document.getElementById('train');
+var indexTextDiv = document.getElementById('index-text');
 var modal = document.getElementById('myModal');
 
 //Empty string to fill with Ben's sequence of morse code characters
@@ -92,6 +93,7 @@ function checkAnswer(){
 function beginLesson(lessonID){
   currLessonID = lessonID;
   answerValue = '';
+  indexTextDiv.style.display = 'none';
   trainDiv.style.display = 'none';
   document.getElementById('yellowbg').style.background = '#f7f7f7';
   lesson[lessonID].style.display = 'block';
@@ -104,13 +106,13 @@ function reset(){
   pressed = '';
   location.reload();
   trainDiv.style.display = 'block';
+  indexTextDiv.style.display = 'block';
   console.log(trainDiv);
 }
 
 //blink buttons if Ben needs a clue
 function blinkDitButton(){
   console.log(dit);
-  ////"press Dit
   var magicCheck = false;
   setInterval(function() {
     var dit = document.getElementById("ditButton");
@@ -130,7 +132,7 @@ function blinkDitButton(){
 
 function blinkDahButton(){
   console.log(dit);
-  //"press Dah
+  //press Dah
   var magicCheck = false;
   setInterval(function() {
     var dah = document.getElementById("dahButton");
