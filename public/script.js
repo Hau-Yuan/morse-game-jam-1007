@@ -21,15 +21,19 @@ var numberOfTries = 0;
 var video = [];
 var lesson = [];
 var lessonVideo = [];
+var rewardVideo = [];
 
-// var buttons = document.querySelectorAll('.morse-button'), i;
 
-for(let id = 0; id < 4; id++){
-  video[id] = document.getElementById('video'+id);
-  lesson[id] = document.getElementById('lesson'+id);
-  lessonVideo[id] = document.getElementById('lessonVideo'+id);
-  document.getElementById('card'+id).addEventListener("click", function(){
+for (let id = 0; id < 4; id++) {
+  video[id] = document.getElementById('video' + id);
+  lesson[id] = document.getElementById('lesson' + id);
+  lessonVideo[id] = document.getElementById('lessonVideo' + id);
+  rewardVideo[id] = document.getElementById('rewardVideo' + id);
+  document.getElementById('card' + id).addEventListener("click", function () {
     beginLesson(id);
+  });
+  rewardVideo[id].addEventListener('ended', function () {
+    location.reload();
   });
 }
 
@@ -70,6 +74,7 @@ function checkAnswer(){
     answerValue = '';
     numberOfTries = 0;
     video[currLessonID].style.display = 'block';
+    rewardVideo[currLessonID].play();
   }
 }
 
