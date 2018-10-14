@@ -3,27 +3,31 @@
 // 1 = train
 // 2 = alien
 // 3 = minion
-letterIndices = ['e','t','a','m'];
 
+letterIndices = ['e','t','a','m'];
 var currLessonID;
 
+//Maximum # of tries for Ben to get right answer before returning to index.html to pick a new video
 var maxTries = 2;
-// import englishToMorse
 
-//if user touches one of the cards
+//Current number of tries
+var numberOfTries = 0;
+
+//If user touches one of the cards
 var trainDiv = document.getElementById('train');
 var modal = document.getElementById('myModal');
 
-// keeps track of what is pressed (sequence of morse chars)
+//Empty string to fill with Ben's sequence of morse code characters
 var answerValue = '';
 var numberOfTries = 0;
 
+//Empty arrays to fill with the train cards and morse code buttons html elements
 var video = [];
 var lesson = [];
 var lessonVideo = [];
 var rewardVideo = [];
 
-
+//Use a for loop to get HTML elements
 for (let id = 0; id < 4; id++) {
   video[id] = document.getElementById('video' + id);
   lesson[id] = document.getElementById('lesson' + id);
@@ -37,7 +41,7 @@ for (let id = 0; id < 4; id++) {
   });
 }
 
-//Sounds on buttons
+//If the user presses a morse code button, play audio, add morse character to string, and checkAnswer()
 document.getElementById("dahButton").addEventListener("click", function(){
   dahAudio.play();
   answerValue = answerValue + "-"
@@ -52,15 +56,20 @@ document.getElementById("ditButton").addEventListener("click", function(){
 var ditAudio = document.getElementById("dit");
 var dahAudio = document.getElementById("dah");
 
+//check Ben's answer
 function checkAnswer(){
   console.log('answerValue', answerValue);
+
+  //if Ben's most recent morse button press in the answerValue string DOESN'T equal the expected answer in the morse code dictionary
   if(answerValue[answerValue.length-1] !== englishToMorse[''+letterIndices[currLessonID]][answerValue.length-1]) {
-    //if answer is wrong
+    //the answer is wrong, increment his # of tries, and empty his answer string
     numberOfTries++;
     answerValue = '';
+     //if he's maxed out his # of tries, reset the window.
     if (numberOfTries > maxTries) {
       reset();
     } else {
+      //if he hasn't maxed out his # of tries, replay the video and blink the right answer as a clue.
       beginLesson(currLessonID)
       if(englishToMorse[''+letterIndices[currLessonID]][0] == '•'){
         blinkDitButton()
@@ -69,8 +78,9 @@ function checkAnswer(){
       }
     }
   }
-  // compare whole string
+   //if Ben's most recent morse button press in the answerValue string DOES equal the expected answer in the morse code dictionary
   if((englishToMorse[''+letterIndices[currLessonID]]) == answerValue){
+    //clear his answer string and number of tries, and play his video
     answerValue = '';
     numberOfTries = 0;
     video[currLessonID].style.display = 'block';
@@ -78,9 +88,9 @@ function checkAnswer(){
   }
 }
 
+//play the lesson
 function beginLesson(lessonID){
   currLessonID = lessonID;
-  //TODO autoplay video here
   answerValue = '';
   trainDiv.style.display = 'none';
   document.getElementById('yellowbg').style.background = '#f7f7f7';
@@ -88,6 +98,7 @@ function beginLesson(lessonID){
   lessonVideo[lessonID].play();
 }
 
+//reset the window if Ben maxed out # of tries or is done watching the video
 function reset(){
   console.log("reset!")
   pressed = '';
@@ -96,7 +107,7 @@ function reset(){
   console.log(trainDiv);
 }
 
-//#21d68c
+//blink buttons if Ben needs a clue
 function blinkDitButton(){
   console.log(dit);
   ////"press Dit
